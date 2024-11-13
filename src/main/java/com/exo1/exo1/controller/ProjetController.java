@@ -17,8 +17,8 @@ public class ProjetController {
     }
 
     @GetMapping
-    public List<ProjetDTO> getAllProjets() {
-        return projetService.getAllProjets();
+    public List<ProjetDTO> getAllProjetsWithTaches() {
+        return projetService.getAllProjetsWithTaches();
     }
 
     @GetMapping("/{id}")

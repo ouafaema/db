@@ -7,7 +7,6 @@ import com.exo1.exo1.repository.ProjetRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,8 +20,9 @@ public class ProjetService {
         this.projetMapper = projetMapper;
     }
 
-    public List<ProjetDTO> getAllProjets() {
-        return projetRepository.findAll().stream()
+    // Optimized method to avoid N+1 problem by using @EntityGraph in the repository
+    public List<ProjetDTO> getAllProjetsWithTaches() {
+        return projetRepository.findAllWithTaches().stream()
                 .map(projetMapper::toDTO)
                 .collect(Collectors.toList());
     }

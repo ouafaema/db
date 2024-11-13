@@ -4,8 +4,12 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.util.List;
 
+// index sur la colonne nom
 @Entity
 @Data
+@Table(name = "projet", indexes = {
+        @Index(name = "idx_projet_nom", columnList = "nom")
+})
 public class Projet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
