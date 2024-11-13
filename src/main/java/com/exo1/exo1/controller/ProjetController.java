@@ -5,6 +5,8 @@ import com.exo1.exo1.service.ProjetService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @RestController
 @RequestMapping("/api/projets")
@@ -16,9 +18,14 @@ public class ProjetController {
         this.projetService = projetService;
     }
 
-    @GetMapping
+    /*@GetMapping
     public List<ProjetDTO> getAllProjetsWithTaches() {
         return projetService.getAllProjetsWithTaches();
+    }*/
+
+    @GetMapping
+    public Page<ProjetDTO> getAllProjetsWithTaches(Pageable pageable) {
+        return projetService.getAllProjetsWithTaches(pageable);
     }
 
     @GetMapping("/{id}")

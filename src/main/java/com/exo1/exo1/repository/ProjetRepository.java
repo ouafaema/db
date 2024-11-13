@@ -8,10 +8,18 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 public interface ProjetRepository extends JpaRepository<Projet, Long> {
+
+
+    /*@EntityGraph(attributePaths = {"taches"})
+    @Query("SELECT p FROM Projet p")
+    List<Projet> findAllWithTaches();*/
 
 
     @EntityGraph(attributePaths = {"taches"})
     @Query("SELECT p FROM Projet p")
-    List<Projet> findAllWithTaches();
+    Page<Projet> findAllWithTaches(Pageable pageable);
 }

@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 @RestController
 @RequestMapping("/api/utilisateurs")
 @AllArgsConstructor
@@ -14,9 +17,14 @@ public class UtilisateurController {
 
     private UtilisateurService utilisateurService;
 
-    @GetMapping
+   /* @GetMapping
     public List<UtilisateurDTO> getAllUtilisateursWithProjets() {
         return utilisateurService.getAllUtilisateursWithProjets();
+    }*/
+
+    @GetMapping
+    public Page<UtilisateurDTO> getAllUtilisateursWithProjets(Pageable pageable) {
+        return utilisateurService.getAllUtilisateursWithProjets(pageable);
     }
 
     @GetMapping("/{id}")

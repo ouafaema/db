@@ -9,6 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 @Service
 public class ProjetService {
 
@@ -21,10 +24,15 @@ public class ProjetService {
     }
 
     // Optimized method to avoid N+1 problem by using @EntityGraph in the repository
-    public List<ProjetDTO> getAllProjetsWithTaches() {
+    /*public List<ProjetDTO> getAllProjetsWithTaches() {
         return projetRepository.findAllWithTaches().stream()
                 .map(projetMapper::toDTO)
                 .collect(Collectors.toList());
+    }*/
+
+    public Page<ProjetDTO> getAllProjetsWithTaches(Pageable pageable) {
+        return projetRepository.findAllWithTaches(pageable)
+                .map(projetMapper::toDTO);
     }
 
     public ProjetDTO getProjetById(Long id) {

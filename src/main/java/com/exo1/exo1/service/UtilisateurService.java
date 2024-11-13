@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class UtilisateurService {
@@ -21,10 +23,15 @@ public class UtilisateurService {
     }
 
     // Optimized method to avoid N+1 problem by using @EntityGraph in the repository
-    public List<UtilisateurDTO> getAllUtilisateursWithProjets() {
+    /*public List<UtilisateurDTO> getAllUtilisateursWithProjets() {
         return utilisateurRepository.findAllWithProjets().stream()
                 .map(utilisateurMapper::toDTO)
                 .collect(Collectors.toList());
+    }*/
+
+    public Page<UtilisateurDTO> getAllUtilisateursWithProjets(Pageable pageable) {
+        return utilisateurRepository.findAllWithProjets(pageable)
+                .map(utilisateurMapper::toDTO);
     }
 
     public UtilisateurDTO getUtilisateurById(Long id) {
