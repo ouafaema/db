@@ -15,8 +15,8 @@ public class UtilisateurController {
     private UtilisateurService utilisateurService;
 
     @GetMapping
-    public List<UtilisateurDTO> getAllUtilisateurs() {
-        return utilisateurService.getAllUtilisateurs();
+    public List<UtilisateurDTO> getAllUtilisateursWithProjets() {
+        return utilisateurService.getAllUtilisateursWithProjets();
     }
 
     @GetMapping("/{id}")
