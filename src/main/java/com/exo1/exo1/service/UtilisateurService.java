@@ -7,8 +7,9 @@ import com.exo1.exo1.repository.UtilisateurRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 @Service
 public class UtilisateurService {
@@ -21,13 +22,18 @@ public class UtilisateurService {
         this.utilisateurMapper = utilisateurMapper;
     }
 
-    public List<UtilisateurDTO> getAllUtilisateurs() {
-        return utilisateurRepository.findAll().stream()
+    // Optimized method to avoid N+1 problem by using @EntityGraph in the repository
+    /*public List<UtilisateurDTO> getAllUtilisateursWithProjets() {
+        return utilisateurRepository.findAllWithProjets().stream()
                 .map(utilisateurMapper::toDTO)
                 .collect(Collectors.toList());
+    }*/
+
+    public Page<UtilisateurDTO> getAllUtilisateursWithProjets(Pageable pageable) {
+        return utilisateurRepository.findAllWithProjets(pageable)
+                .map(utilisateurMapper::toDTO);
     }
 
-    // Ajoutez cette méthode si elle est manquante
     public UtilisateurDTO getUtilisateurById(Long id) {
         Utilisateur utilisateur = utilisateurRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
@@ -52,5 +58,4 @@ public class UtilisateurService {
     public void deleteUtilisateur(Long id) {
         utilisateurRepository.deleteById(id);
     }
-
 }
