@@ -5,13 +5,13 @@ import com.exo1.exo1.dto.TachesParProjetDTO;
 import com.exo1.exo1.entity.Projet;
 import com.exo1.exo1.mapper.ProjetMapper;
 import com.exo1.exo1.repository.ProjetRepository;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 
 @Service
 public class ProjetService {
@@ -30,6 +30,7 @@ public class ProjetService {
                 .map(projetMapper::toDTO);
     }
 
+    @Cacheable("projets")  // Cette annotation met en cache le résultat de cette méthode
     public ProjetDTO getProjetById(Long id) {
         Projet projet = projetRepository.findById(id).orElseThrow(() -> new RuntimeException("Projet not found"));
         return projetMapper.toDTO(projet);
