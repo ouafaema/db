@@ -1,5 +1,6 @@
 package com.exo1.exo1.repository;
 
+import com.exo1.exo1.dto.TachesParProjetDTO;
 import com.exo1.exo1.entity.Projet;
 
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -22,4 +23,9 @@ public interface ProjetRepository extends JpaRepository<Projet, Long> {
     @EntityGraph(attributePaths = {"taches"})
     @Query("SELECT p FROM Projet p")
     Page<Projet> findAllWithTaches(Pageable pageable);
+
+    @Query("SELECT new com.exo1.exo1.dto.TachesParProjetDTO(p.id, p.nom, COUNT(t)) " +
+            "FROM Projet p LEFT JOIN p.taches t GROUP BY p.id, p.nom")
+    List<TachesParProjetDTO> findTachesParProjet();
+
 }

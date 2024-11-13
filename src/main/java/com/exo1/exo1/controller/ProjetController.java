@@ -1,6 +1,7 @@
 package com.exo1.exo1.controller;
 
 import com.exo1.exo1.dto.ProjetDTO;
+import com.exo1.exo1.dto.TachesParProjetDTO;
 import com.exo1.exo1.service.ProjetService;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,13 @@ public class ProjetController {
         this.projetService = projetService;
     }
 
+
+
+
+    @GetMapping("/taches-par-projet")
+    public List<TachesParProjetDTO> getTachesParProjet() {
+        return projetService.getTachesParProjet();
+    }
     /*@GetMapping
     public List<ProjetDTO> getAllProjetsWithTaches() {
         return projetService.getAllProjetsWithTaches();
