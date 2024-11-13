@@ -22,7 +22,7 @@ public class UtilisateurController {
         return utilisateurService.getAllUtilisateursWithProjets();
     }*/
 
-    @GetMapping
+    @GetMapping(("/pagination"))
     public Page<UtilisateurDTO> getAllUtilisateursWithProjets(Pageable pageable) {
         return utilisateurService.getAllUtilisateursWithProjets(pageable);
     }

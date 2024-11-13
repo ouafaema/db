@@ -21,12 +21,18 @@ public class ProjetController {
     /*@GetMapping
     public List<ProjetDTO> getAllProjetsWithTaches() {
         return projetService.getAllProjetsWithTaches();
-    }*/
+    }
 
     @GetMapping
     public Page<ProjetDTO> getAllProjetsWithTaches(Pageable pageable) {
         return projetService.getAllProjetsWithTaches(pageable);
+    }*/
+    //to test use http://localhost:8081/api/projets/pagination?page=0&size=1
+    @GetMapping("/pagination")
+    public Page<ProjetDTO> getAllProjetsWithTaches(Pageable pageable) {
+        return projetService.getAllProjetsWithTaches(pageable);
     }
+
 
     @GetMapping("/{id}")
     public ProjetDTO getProjetById(@PathVariable Long id) {
